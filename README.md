@@ -22,3 +22,11 @@ It supports two interfaces:
    ```bash
    git clone https://github.com/wrogistefan/todoapp.git
    cd todoapp
+
+todoapp/
+├── tasks.py        # core logic
+├── storage.py      # JSON save/load
+├── console_app.py  # console interface (class-based)
+├── gui.py          # Tkinter GUI interface
+├── main.py         # entry point
+└── README.md       # project description
