@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Oko",
+    "done": false,
+    "priority": 3,
+    "due_date": "2026-01-06"
+  },
+  {
+    "title": "Cokolwiek",
+    "done": false,
+    "priority": 1,
+    "due_date": null
+  },
+  {
+    "title": "Okna",
+    "done": false,
+    "priority": 2,
+    "due_date": "2026-01-04"
+  },
+  {
+    "title": "Zadanie do wykonania",
+    "done": true,
+    "priority": 1,
+    "due_date": null
+  },
+  {
+    "title": "Kapeć",
+    "done": false,
+    "priority": 2,
+    "due_date": "2036-02-23"
+  }
+]
