@@ -7,7 +7,7 @@ name = "todoapp"
 version = "1.1.0"
 description = "A console and Tkinter GUI task manager with JSON persistence"
 authors = [{name = "Łukasz Perek", email = "lukasz.perek@gmail.com"}]
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 dependencies = []
 
 [project.optional-dependencies]
