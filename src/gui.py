@@ -1,10 +1,17 @@
 import tkinter as tk
 from tkinter import messagebox, simpledialog
-from tasks import (
-    add_task, toggle_task, change_priority, set_due_date,
-    sort_tasks, filter_tasks, days_left_str, parse_due_date
+
+from models import (
+    add_task,
+    change_priority,
+    days_left_str,
+    filter_tasks,
+    parse_due_date,
+    set_due_date,
+    sort_tasks,
+    toggle_task,
 )
-from storage import save_tasks, load_tasks
+from storage import load_tasks, save_tasks
 
 
 class TodoApp:
@@ -37,23 +44,75 @@ class TodoApp:
         self.due_entry.grid(row=5, column=1, sticky="we", padx=4, pady=2)
 
         # Action buttons (right panel)
-        tk.Button(root, text="Dodaj zadanie", command=self.add_task_gui).grid(row=6, column=1, sticky="we", padx=4, pady=2)
-        tk.Button(root, text="Toggle done", command=self.toggle_task_gui).grid(row=7, column=1, sticky="we", padx=4, pady=2)
-        tk.Button(root, text="Zmień priorytet", command=self.change_priority_gui).grid(row=8, column=1, sticky="we", padx=4, pady=2)
-        tk.Button(root, text="Ustaw termin", command=self.set_due_date_gui).grid(row=9, column=1, sticky="we", padx=4, pady=2)
-        tk.Button(root, text="Wyczyść termin", command=self.clear_due_date_gui).grid(row=10, column=1, sticky="we", padx=4, pady=2)
-        tk.Button(root, text="Edytuj opis", command=self.edit_title_gui).grid(row=11, column=1, sticky="we", padx=4, pady=2)
-        tk.Button(root, text="Usuń zadanie", command=self.delete_task_gui).grid(row=12, column=1, sticky="we", padx=4, pady=2)
+        add_btn = tk.Button(
+            root, text="Dodaj zadanie", command=self.add_task_gui
+        )
+        add_btn.grid(row=6, column=1, sticky="we", padx=4, pady=2)
+
+        toggle_btn = tk.Button(
+            root, text="Toggle done", command=self.toggle_task_gui
+        )
+        toggle_btn.grid(row=7, column=1, sticky="we", padx=4, pady=2)
+
+        priority_btn = tk.Button(
+            root, text="Zmień priorytet", command=self.change_priority_gui
+        )
+        priority_btn.grid(row=8, column=1, sticky="we", padx=4, pady=2)
+
+        due_btn = tk.Button(
+            root, text="Ustaw termin", command=self.set_due_date_gui
+        )
+        due_btn.grid(row=9, column=1, sticky="we", padx=4, pady=2)
+
+        clear_btn = tk.Button(
+            root, text="Wyczyść termin", command=self.clear_due_date_gui
+        )
+        clear_btn.grid(row=10, column=1, sticky="we", padx=4, pady=2)
+
+        edit_btn = tk.Button(
+            root, text="Edytuj opis", command=self.edit_title_gui
+        )
+        edit_btn.grid(row=11, column=1, sticky="we", padx=4, pady=2)
+
+        delete_btn = tk.Button(
+            root, text="Usuń zadanie", command=self.delete_task_gui
+        )
+        delete_btn.grid(row=12, column=1, sticky="we", padx=4, pady=2)
 
         # Bottom: filters, sorting, persistence
         tk.Label(root, text="Filtr:").grid(row=13, column=0, sticky="w", padx=10)
-        tk.OptionMenu(root, self.filter_done_var, "all", "done", "not_done", "high", command=lambda _: self.refresh_list()).grid(row=13, column=0, sticky="w", padx=60)
+        filter_menu = tk.OptionMenu(
+            root,
+            self.filter_done_var,
+            "all",
+            "done",
+            "not_done",
+            "high",
+            command=lambda _: self.refresh_list(),
+        )
+        filter_menu.grid(row=13, column=0, sticky="w", padx=60)
 
         tk.Label(root, text="Sortuj wg:").grid(row=13, column=1, sticky="w", padx=4)
-        tk.OptionMenu(root, self.sort_by_var, "none", "priority", "due_date", "title", command=lambda _: self.apply_sort_and_refresh()).grid(row=13, column=1, sticky="e", padx=4)
+        sort_menu = tk.OptionMenu(
+            root,
+            self.sort_by_var,
+            "none",
+            "priority",
+            "due_date",
+            "title",
+            command=lambda _: self.apply_sort_and_refresh(),
+        )
+        sort_menu.grid(row=13, column=1, sticky="e", padx=4)
 
-        tk.Button(root, text="Zapisz", command=self.save_gui).grid(row=14, column=0, sticky="w", padx=10, pady=8)
-        tk.Button(root, text="Wczytaj", command=self.load_gui).grid(row=14, column=1, sticky="e", padx=4, pady=8)
+        save_btn = tk.Button(
+            root, text="Zapisz", command=self.save_gui
+        )
+        save_btn.grid(row=14, column=0, sticky="w", padx=10, pady=8)
+
+        load_btn = tk.Button(
+            root, text="Wczytaj", command=self.load_gui
+        )
+        load_btn.grid(row=14, column=1, sticky="e", padx=4, pady=8)
 
         # Configure columns to stretch nicely
         root.grid_columnconfigure(0, weight=1)
@@ -65,8 +124,11 @@ class TodoApp:
     def refresh_list(self, tasks_override=None):
         self.listbox.delete(0, tk.END)
         # Apply filter first
-        tasks_to_render = tasks_override if tasks_override is not None else self.apply_filter(self.tasks)
-        # Apply sort if needed (without mutating self.tasks unless explicitly requested)
+        if tasks_override is not None:
+            tasks_to_render = tasks_override
+        else:
+            tasks_to_render = self.apply_filter(self.tasks)
+        # Apply sort (without mutating self.tasks unless explicitly requested)
         tasks_to_render = self.apply_sort(tasks_to_render)
 
         for idx, task in enumerate(tasks_to_render):
@@ -185,7 +247,11 @@ class TodoApp:
         if idx is None:
             messagebox.showinfo("Info", "Zaznacz zadanie na liście.")
             return
-        new_title = simpledialog.askstring("Edytuj opis", "Nowy opis zadania:", initialvalue=self.tasks[idx]["title"])
+        new_title = simpledialog.askstring(
+            "Edytuj opis",
+            "Nowy opis zadania:",
+            initialvalue=self.tasks[idx]["title"],
+        )
         if new_title is None:
             return
         new_title = new_title.strip()

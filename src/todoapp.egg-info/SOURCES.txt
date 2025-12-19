@@ -1,0 +1,15 @@
+README.md
+pyproject.toml
+src/__init__.py
+src/console_app.py
+src/gui.py
+src/main.py
+src/models.py
+src/storage.py
+src/todoapp.egg-info/PKG-INFO
+src/todoapp.egg-info/SOURCES.txt
+src/todoapp.egg-info/dependency_links.txt
+src/todoapp.egg-info/requires.txt
+src/todoapp.egg-info/top_level.txt
+tests/test_integration.py
+tests/test_storage.py

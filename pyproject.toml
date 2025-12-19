@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "todoapp"
+version = "1.1.0"
+description = "A console and Tkinter GUI task manager with JSON persistence"
+authors = [{name = "Łukasz Perek", email = "lukasz.perek@gmail.com"}]
+requires-python = ">=3.8"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"

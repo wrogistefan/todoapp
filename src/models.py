@@ -1,5 +1,6 @@
 from datetime import date, datetime
 
+
 def parse_due_date(text: str) -> str | None:
     """Konwertuje tekst DD.MM.RRRR na ISO (YYYY-MM-DD)."""
     text = text.strip()

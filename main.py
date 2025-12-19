@@ -1,22 +1,12 @@
-import tkinter as tk
-from console_app import ConsoleTodoApp
-from gui import TodoApp
+"""Entry point for TodoApp - runs from project root."""
+import sys
+from pathlib import Path
 
-def main():
-    print("=== Wybierz tryb uruchomienia ===")
-    print("1) Konsola")
-    print("2) GUI (Tkinter)")
-    choice = input("Twój wybór: ").strip()
+# Add src directory to path
+src_path = Path(__file__).parent / "src"
+sys.path.insert(0, str(src_path))
 
-    if choice == "1":
-        app = ConsoleTodoApp()
-        app.run()
-    elif choice == "2":
-        root = tk.Tk()
-        app = TodoApp(root)
-        root.mainloop()
-    else:
-        print("Nieznana opcja. Uruchom ponownie i wybierz 1 lub 2.")
+from main import main  # noqa: E402
 
 if __name__ == "__main__":
     main()

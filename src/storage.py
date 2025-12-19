@@ -1,16 +1,22 @@
 from pathlib import Path
 import json
-from typing import List, Dict, Any
+from typing import Any, Dict, List
 
 DATA_FILE = Path("tasks.json")
 
+
 def save_tasks(tasks: List[Dict[str, Any]]) -> None:
-    DATA_FILE.write_text(json.dumps(tasks, indent=2, ensure_ascii=False), encoding="utf-8")
+    DATA_FILE.write_text(
+        json.dumps(tasks, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
     print(f"DEBUG: saved {len(tasks)} tasks to {DATA_FILE}")
+
 
 def load_tasks() -> List[Dict[str, Any]]:
     """
-    Load tasks from DATA_FILE. Always return a list (empty list on missing/corrupt file).
+    Load tasks from DATA_FILE.
+
+    Always return a list (empty list on missing/corrupt file).
     """
     if not DATA_FILE.exists():
         print(f"DEBUG: {DATA_FILE} not found, returning []")

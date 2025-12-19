@@ -1,7 +1,9 @@
 import tkinter as tk
 
+
 def say_hello():
     print("Cześć, Łukasz!")
+
 
 root = tk.Tk()
 root.title("Moja pierwsza aplikacja")
