@@ -1,7 +1,7 @@
 # TodoApp
 
 [![CI](https://github.com/wrogistefan/todoapp/actions/workflows/ci.yml/badge.svg)](https://github.com/wrogistefan/todoapp/actions)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10%2C3.11-blue.svg)](https://www.python.org/)
 [![Codecov](https://codecov.io/gh/wrogistefan/todoapp/branch/main/graph/badge.svg)](https://codecov.io/gh/wrogistefan/todoapp)
 
@@ -90,6 +90,12 @@ todoapp/
 ```
 
 ## Development
+
+Code style: PEP8 enforced with flake8
+
+Formatting: black
+
+CI/CD: GitHub Actions + Codecov integration
 
 ### Running Tests
 

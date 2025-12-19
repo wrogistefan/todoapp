@@ -9,6 +9,7 @@ from models import (
     toggle_task,
 )
 from storage import load_tasks, save_tasks
+import sys
 
 
 class ConsoleTodoApp:
@@ -42,6 +43,8 @@ class ConsoleTodoApp:
         due_input = input("Due date (DD.MM.RRRR, optional): ").strip()
         due_iso = parse_due_date(due_input) if due_input else None
         self.tasks = add_task(self.tasks, title, priority, due_iso)
+        
+        print(f"Added task: {title}")
 
     def _handle_toggle_task(self):
         """Handle toggling a task's done status."""
@@ -132,3 +135,74 @@ class ConsoleTodoApp:
         """Sort tasks and display them."""
         self.tasks = sort_tasks(self.tasks, by=by, reverse=reverse)
         self.display_tasks()
+
+
+
+
+def main():
+    # Arg-based CLI (non-interactive) for tests and quick commands
+    args = sys.argv[1:]
+    tasks = load_tasks()
+
+    if not args:
+        print("Usage: console_app.py [add <title>|list|delete <index>|complete <index>]")
+        return 0
+
+    cmd = args[0]
+
+    if cmd == "add":
+        if len(args) < 2:
+            print("Error: missing task title")
+            return 1
+        title = args[1]
+        tasks = add_task(tasks, title)  # default priority, no due date
+        save_tasks(tasks)
+        print(f"Added task: {title}")
+        return 0
+
+    elif cmd == "list":
+        if not tasks:
+            print("No tasks yet.")
+            return 0
+        for i, t in enumerate(tasks):
+            status = "✓" if t["done"] else " "
+            prio = t.get("priority", 2)
+            print(f"{i}. [{status}] {t['title']} (prio {prio})")
+        return 0
+
+    elif cmd == "complete":
+        if len(args) < 2:
+            print("Error: missing task index")
+            return 1
+        idx = int(args[1])
+        tasks = toggle_task(tasks, idx)
+        save_tasks(tasks)
+        print(f"Completed task {idx}: {tasks[idx]['title']}")
+        return 0
+
+    elif cmd == "delete":
+        if len(args) < 2:
+            print("Error: missing task index")
+            return 1
+        idx = int(args[1])
+        if 0 <= idx < len(tasks):
+            removed = tasks.pop(idx)
+            save_tasks(tasks)
+            print(f"Deleted task {idx}: {removed['title']}")
+            return 0
+        else:
+            print("Invalid index")
+            return 1
+
+    else:
+        print("Unknown command")
+        return 1
+
+
+if __name__ == "__main__":
+    import sys
+    if len(sys.argv) > 1:
+        # uruchom tryb argumentów (add/list/complete/delete)
+        sys.exit(main())
+    else:
+        print("Usage: console_app.py [add|list|delete|complete]")

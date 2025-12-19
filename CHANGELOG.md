@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0] - 2025-12-19
+### Added
+- Fallback handling in `main.py` for environments without stdin (EOFError).
+- Command-line help message in `console_app.py` when no arguments are provided.
+- CLI output messages for `add`, `list`, `delete`, and `complete` commands.
+
+### Changed
+- Improved validation in `models.py`:
+  - `add_task` now rejects empty titles and enforces priority values 1–3.
+  - `set_due_date` validates date format (YYYY-MM-DD).
+  - `toggle_task` and `change_priority` raise proper exceptions on invalid indices.
+- Unified CLI behavior with clear user feedback and error messages.
+
+### Fixed
+- All tests (`pytest --cov=src`) now pass successfully.
+- Coverage increased and stabilized across modules.
+- Eliminated duplicate task creation in console add handler.
+
+
 ## [1.1.0] - 2025-12-19
 
 ### Added

@@ -41,14 +41,19 @@ def filter_tasks(tasks, filter_done=None, min_priority=None):
     return filtered
 
 
-def add_task(tasks, title: str, priority: int = 2, due_date: str | None = None):
-    """Dodaje nowe zadanie do listy."""
+def add_task(tasks, title: str, priority: int = 1, due_date: str | None = None):
+    """Dodaje nowe zadanie do listy.
+    Walidacja: tytuł nie może być pusty, priorytet musi być 1–3.
+    """
     if not title.strip():
-        return tasks
+        raise ValueError("Task title cannot be empty")
+    if priority not in (1, 2, 3):
+        raise ValueError("Priority must be 1, 2 or 3")
+
     tasks.append({
         "title": title.strip(),
         "done": False,
-        "priority": priority if priority in (1, 2, 3) else 2,
+        "priority": priority,
         "due_date": due_date,
     })
     return tasks
@@ -56,25 +61,39 @@ def add_task(tasks, title: str, priority: int = 2, due_date: str | None = None):
 
 def toggle_task(tasks, index: int):
     """Zmienia status zadania (done/undone)."""
-    if 0 <= index < len(tasks):
-        tasks[index]["done"] = not tasks[index]["done"]
+    if index < 0 or index >= len(tasks):
+        raise IndexError("Invalid task index")
+    tasks[index]["done"] = not tasks[index]["done"]
     return tasks
 
 
 def change_priority(tasks, index: int, new_priority: int):
     """Zmienia priorytet zadania."""
-    if 0 <= index < len(tasks) and new_priority in (1, 2, 3):
-        tasks[index]["priority"] = new_priority
+    if index < 0 or index >= len(tasks):
+        raise IndexError("Invalid task index")
+    if new_priority not in (1, 2, 3):
+        raise ValueError("Priority must be 1, 2 or 3")
+    tasks[index]["priority"] = new_priority
     return tasks
 
 
 def set_due_date(tasks, index: int, due_date: str | None):
-    """Ustawia lub czyści termin zadania."""
-    if 0 <= index < len(tasks):
-        tasks[index]["due_date"] = due_date
+    """Ustawia lub czyści termin zadania.
+    Walidacja: index poprawny, data w formacie YYYY-MM-DD.
+    """
+    if index < 0 or index >= len(tasks):
+        raise IndexError("Invalid task index")
+    if due_date is not None:
+        try:
+            datetime.strptime(due_date, "%Y-%m-%d")
+        except ValueError:
+            raise ValueError("Date must be in YYYY-MM-DD format")
+    # <- tutaj brakowało faktycznego przypisania
+    tasks[index]["due_date"] = due_date
     return tasks
 
-
+        
+        
 def sort_tasks(tasks, by="priority", reverse=True):
     """Sortuje listę zadań według wybranego kryterium."""
     if by == "priority":
