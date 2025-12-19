@@ -1,1 +1,1 @@
-.coverage\ncoverage.xml\n__pycache__/\n*.pyc\n.vscode/
+__pycache__/\n*.pyc\n*.pyo\n.pytest_cache/\n.coverage\ncoverage.xml\nvenv/\n.env/\n.vscode/\n.idea/\n.DS_Store\nThumbs.db
