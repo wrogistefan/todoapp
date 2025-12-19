@@ -3,7 +3,7 @@
 [![CI](https://github.com/wrogistefan/todoapp/actions/workflows/ci.yml/badge.svg)](https://github.com/wrogistefan/todoapp/actions)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10%2C3.11-blue.svg)](https://www.python.org/)
-[![Codecov](https://codecov.io/gh/wrogistefan/todoapp/branch/main/graph/badge.svg)](https://codecov.io/gh/wrogistefan/todoapp)
+[![Tests](https://img.shields.io/badge/tests-12%20passing-brightgreen)](tests/)
 
 A lightweight, dual-interface task management application built with Python. Organize your tasks efficiently with both a console CLI and a modern Tkinter graphical interface. Data persists via JSON, ensuring your tasks are always saved.
 
@@ -20,7 +20,7 @@ A lightweight, dual-interface task management application built with Python. Org
 
 ### Prerequisites
 
-- Python 3.8 or higher
+- Python 3.10 or higher
 - pip package manager
 
 ### Installation
@@ -110,7 +110,7 @@ See [pyproject.toml](pyproject.toml) for build system configuration and [require
 
 ## Continuous Integration
 
-This project uses GitHub Actions for automated testing. The CI pipeline runs tests across Python 3.8, 3.9, 3.10, and 3.11. See [.github/workflows/ci.yml](.github/workflows/ci.yml) for details.
+This project uses GitHub Actions for automated testing. The CI pipeline runs tests across Python 3.10 and 3.11. See [.github/workflows/ci.yml](.github/workflows/ci.yml) for details.
 
 ## Architecture
 
