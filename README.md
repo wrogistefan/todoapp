@@ -1,5 +1,10 @@
 # TodoApp
 
+[![CI](https://github.com/wrogistefan/todoapp/actions/workflows/ci.yml/badge.svg)](https://github.com/wrogistefan/todoapp/actions)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.10%2C3.11-blue.svg)](https://www.python.org/)
+[![Codecov](https://codecov.io/gh/wrogistefan/todoapp/branch/main/graph/badge.svg)](https://codecov.io/gh/wrogistefan/todoapp)
+
 A lightweight, dual-interface task management application built with Python. Organize your tasks efficiently with both a console CLI and a modern Tkinter graphical interface. Data persists via JSON, ensuring your tasks are always saved.
 
 ## Features
@@ -51,6 +56,14 @@ python src/gui.py
 ```bash
 python src/main.py
 ```
+
+You can also run the application directly from the project root using the provided wrapper:
+
+```bash
+# From project root
+python main.py
+```
+
 
 ## Project Structure
 
