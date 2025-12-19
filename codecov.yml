@@ -1,0 +1,27 @@
+codecov:
+  require_ci_to_pass: false
+  max_report_age: off
+
+coverage:
+  precision: 2
+  round: down
+  range: "70..100"
+
+comment:
+  layout: "reach,diff,flags,tree"
+  behavior: default
+  require_changes: false
+  require_base: false
+  require_head: true
+  delete_old_comments: false
+  hide_project_coverage: false
+  show_critical_path: false
+
+ignore:
+  - "tests"
+  - "__pycache__"
+  - "*.pyc"
+
+flags:
+  unittests:
+    carryforward: true
